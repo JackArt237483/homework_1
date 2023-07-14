@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class Timer extends Component {
+
+  constructor(props){
+      super(props)
+      this.state = {seconds: 0}
+  }
+
+  tick() {
+    this.setState(state => ({
+      seconds: state.seconds + 1
+    }))
+  }
+
+   componentDidMount() {
+    this.inerval = setInterval(() =>
+    this.tick(),1000);
+   }
+
+   componentWillUnmount () {
+    clearInterval(this.inerval)
+   }
+
+  render() {
+    return (
+      <div>
+          Ceкунды: {this.state.seconds}
+      </div>
+    )
+  }
 }
 
-export default App;
